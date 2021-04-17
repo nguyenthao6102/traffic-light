@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import TrafficLight from "./components/TrafficLight";
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const RED = 0;
+const ORANGE = 1;
+const GREEN = 2;
+export default class App extends Component {
+	constructor() {
+		super();
+
+		this.state = {
+			currentColor: RED,
+		};
+		setInterval(() => {
+			this.setState({
+				currentColor: this.getNextColor(this.state.currentColor),
+			});
+		}, 1000);
+	}
+	getNextColor(color) {
+		switch (color) {
+			case RED:
+				return ORANGE;
+			case ORANGE:
+				return GREEN;
+			default:
+				return RED;
+		}
+	}
+	render() {
+		return (
+			<div>
+				<TrafficLight currentColor={this.state.currentColor} />
+			</div>
+		);
+	}
 }
-
-export default App;
